@@ -14,9 +14,13 @@ class Animal:
     @classmethod
     def show_alive(cls) -> None:
         for animal in cls.alive:
-            print(
-                {"Name": {self.name}, "Health": {self.health}, "Hidden": {self.hidden}}
-            )
+            output = {
+                "Name": {self.name},
+                "Health": {self.health},
+                "Hidden": {self.hidden}
+            }
+            print(output)
+
 
 class Herbivore(Animal):
     def hide(self) -> bool:
