@@ -7,17 +7,20 @@ class Animal:
         self.hidden = hidden
 
     def alive_animals(self) -> None:
-        if self.health > 0:
-            if self.name not in Animal.alive:
-                Animal.alive.append(self)
+        if self in Animal.alive:
+            if self.health <= 0:
+                Animal.alive.remove(self)
+        elif self.health > 0:
+            Animal.alive.append(self)
+
 
     @classmethod
     def show_alive(cls) -> None:
         for animal in cls.alive:
             output = {
-                "Name": {self.name},
-                "Health": {self.health},
-                "Hidden": {self.hidden}
+                "Name": {animal.name},
+                "Health": {animal.health},
+                "Hidden": {animal.hidden}
             }
             print(output)
 
