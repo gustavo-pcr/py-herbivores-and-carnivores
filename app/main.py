@@ -23,5 +23,6 @@ class Herbivore(Animal):
 
 class Carnivore(Animal):
     def bite(self, herbivore: Animal) -> int:
-        herbivore.health -= 50
+        if herbivore.hidden is True:
+            herbivore.health -= 50
         return herbivore.health
