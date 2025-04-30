@@ -9,21 +9,22 @@ class Animal:
     def alive_animals(self) -> None:
         if self.health > 0:
             if self.name not in Animal.alive:
-                Animal.alive.append({
-                    "Name": self.name,
-                    "Health": self.health,
-                    "Hidden": self.hidden
-                })
+                Animal.alive.append(self)
 
+    @classmethod
+    def show_alive(cls) -> None:
+        for animal in cls.alive:
+            print(
+                {"Name": {self.name}, "Health": {self.health}, "Hidden": {self.hidden}}
+            )
 
 class Herbivore(Animal):
     def hide(self) -> bool:
-        self.hidden is True
         return self.hidden
 
 
 class Carnivore(Animal):
     def bite(self, herbivore: Animal) -> int:
-        if herbivore.hidden is False:
+        if not herbivore.hidden:
             herbivore.health -= 50
         return herbivore.health
