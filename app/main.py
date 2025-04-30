@@ -13,7 +13,6 @@ class Animal:
         elif self.health > 0:
             Animal.alive.append(self)
 
-
     @classmethod
     def show_alive(cls) -> None:
         for animal in cls.alive:
