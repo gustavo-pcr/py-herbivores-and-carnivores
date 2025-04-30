@@ -1,42 +1,29 @@
 class Animal:
     alive = []
 
-    def __init__(self, health: int, name: str, hidden: bool) -> None:
-        self.health = health
+    def __init__(self, name: str) -> None:
         self.name = name
-        self.hidden = hidden
+        self.health = 100
+        self.hidden = False
+        Animal.alive.append(self)
 
-    def alive_animals(self) -> None:
-        if self in Animal.alive:
-            if self.health <= 0:
-                Animal.alive.remove(self)
-        elif self.health > 0:
-            Animal.alive.append(self)
+    def check_status(self) -> None:
+        if self.health <= 0 and self in Animal.alive:
+            Animal.alive.remove(self)
 
-    @classmethod
-    def show_alive(cls) -> None:
-        for animal in cls.alive:
-            output = {
-                "Name": animal.name,
-                "Health": animal.health,
-                "Hidden": animal.hidden
-            }
-            print(output)
+    def __repr__(self) -> str:
+        return (
+            f"{{Name: {self.name}, Health: {self.health}, Hidden: {self.hidden}}}"
+        )
 
 
 class Herbivore(Animal):
-    def __init__(self, name: str) -> None:
-        super().__init__(health=100, name=name, hidden=False)
-
-    def hide(self) -> bool:
-        return self.hidden
+    def hide(self) -> None:
+        self.hidden = not self.hidden
 
 
 class Carnivore(Animal):
-    def __init__(self, name: str) -> None:
-        super().__init__(health=100, name=name, hidden=False)
-
-    def bite(self, herbivore: Animal) -> int:
-        if not herbivore.hidden:
-            herbivore.health -= 50
-        return herbivore.health
+    def bite(self, other: Animal) -> None:
+        if isinstance(other, Herbivore) and not other.hidden:
+            other.health -= 50
+            other.check_status()
