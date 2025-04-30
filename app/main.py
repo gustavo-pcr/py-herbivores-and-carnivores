@@ -17,19 +17,25 @@ class Animal:
     def show_alive(cls) -> None:
         for animal in cls.alive:
             output = {
-                "Name": {animal.name},
-                "Health": {animal.health},
-                "Hidden": {animal.hidden}
+                "Name": animal.name,
+                "Health": animal.health,
+                "Hidden": animal.hidden
             }
             print(output)
 
 
 class Herbivore(Animal):
+    def __init__(self, name: str) -> None:
+        super().__init__(health=100, name=name, hidden=False)
+
     def hide(self) -> bool:
         return self.hidden
 
 
 class Carnivore(Animal):
+    def __init__(self, name: str) -> None:
+        super().__init__(health=100, name=name, hidden=False)
+
     def bite(self, herbivore: Animal) -> int:
         if not herbivore.hidden:
             herbivore.health -= 50
